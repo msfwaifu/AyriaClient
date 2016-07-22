@@ -170,6 +170,7 @@
     <None Include="AyriaClient.licenseheader" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Cache\Cachemanager.h" />
     <ClInclude Include="Source\Communication\Messagehandler.h" />
     <ClInclude Include="Source\Configuration\All.h" />
     <ClInclude Include="Source\Configuration\Defines.h" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Source\Utilities\Strings\Variadicstring.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Cache\Cachemanager.cpp" />
     <ClCompile Include="Source\Communication\LibraryExports.cpp" />
     <ClCompile Include="Source\Communication\Messagehandler.cpp" />
     <ClCompile Include="Source\Communication\Pipeinterface.cpp" />
