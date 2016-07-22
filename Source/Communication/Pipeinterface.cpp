@@ -31,14 +31,40 @@ namespace Messagehandler
     // UV callbacks.
     void Bufferallocator(uv_handle_t *Handle, size_t Size, uv_buf_t *Buffer)
     {
-        *Buffer = uv_buf_init(std::make_unique<char []>(std::min(Size, size_t(2048))).get(), std::min(Size, size_t(2048)));
+        *Buffer = uv_buf_init(std::make_unique<char []>(std::min(Size, size_t(MAX_MESSAGE_SIZE))).get(), std::min(Size, size_t(MAX_MESSAGE_SIZE)));
     }
     void onRead(uv_stream_t *Stream, ssize_t Readcount, const uv_buf_t *Buffer)
     {
-        /*
-            TODO(Convery):
-            Implement a steam buffer and read into it.
-        */
+        void *pBuffer = Buffer->base;
+        uint32_t Length = uint32_t(Readcount);
+        bool Recursive;
+
+        // Error checking.
+        if (Readcount < 0)
+        {
+            if(Readcount != UV_EOF)
+                DebugPrint(va("%s error: %s", __func__, uv_err_name(Readcount)));
+            return;
+        }
+
+        // Read the stream.
+        static Streambuffer Streamreader;
+        Recursive = Streamreader.Read(&Length, pBuffer);
+
+        // Handle the message if available.
+        if (Streamreader.Full)
+        {
+            Bytebuffer Messagebuffer(Streamreader.Internallength, Streamreader.Internalbuffer.get());
+            uint32_t RequestID = Messagebuffer.Read<uint32_t>();
+            Handlemessage(RequestID, &Messagebuffer);
+        }
+
+        // Call this function again if there's still data in the stream.
+        if (Recursive)
+        {
+            uv_buf_t Newbuffer = uv_buf_init((char *)pBuffer, Length);
+            onRead(Stream, Length, &Newbuffer);
+        }
     }
     void onConnection(uv_stream_t *Handle, int Status)
     {
@@ -94,6 +120,36 @@ namespace Messagehandler
             return;
         }
     }
-    void Senddataonpipe(std::string &Databuffer) {};
-    void Senddataonpipe(uint32_t Length, const void *Databuffer) {};
+
+    void Writecleanup(uv_write_t* Request, int Status)
+    {
+        delete Request;
+    }
+    void Senddataonpipe(std::string &Databuffer) 
+    {
+        Senddataonpipe(Databuffer.size(), Databuffer.data());
+    };
+    void Senddataonpipe(uint32_t Length, const void *Databuffer) 
+    {
+        // Format the data.
+        Streambuffer Streamwriter;
+        Streamwriter.Write(Length, Databuffer);
+
+        // Create a new buffer for the message and the request.
+        uv_buf_t Buffer = uv_buf_init(std::make_unique<char[]>(Streamwriter.Internallength).get(), Streamwriter.Internallength);
+        std::memcpy(Buffer.base, Streamwriter.Internalbuffer.get(), Streamwriter.Internallength);
+        uv_write_t *Request = new uv_write_t();
+        Request->data = Buffer.base;
+        
+        // Send the request out on the pipe.
+        if (uv_write(Request, (uv_stream_t *)&Pipe, &Buffer, 1, Writecleanup))
+        {
+            /*
+                TODO(Convery):
+                Error handling, it could be useful to have.
+            */
+
+            delete Request;
+        }
+    };
 };

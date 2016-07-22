@@ -28,12 +28,21 @@ namespace Messagehandler
     {
         auto Handler = Handlermap.find(MessageID);
 
-        // Process the messages in parallel and return them in order.
+        // The handler should start its core-function in a new thread.
         if (Handler != Handlermap.end())
         {
-            auto Lambda = [](auto Handler, va_list Arguments) { Addrequest(); Handler->second(Arguments); };
-            std::thread(Lambda, Handler, Arguments).detach();
-        }            
+            Handler->second(&Arguments, nullptr);
+        }
+    }
+    void Handlemessage(uint32_t MessageID, Bytebuffer *Buffer)
+    {
+        auto Handler = Handlermap.find(MessageID);
+
+        // The handler should start its core-function in a new thread.
+        if (Handler != Handlermap.end())
+        {
+            Handler->second(nullptr, Buffer);
+        }
     }
 
     // Request-synchronization.

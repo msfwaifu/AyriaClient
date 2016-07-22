@@ -11,7 +11,7 @@
 #include <cstdarg>
 
 // Subsystem callback on message.
-using mCallback = void (*) (va_list Arguments);
+using mCallback = void (*) (va_list *Arguments, Bytebuffer *Buffer);
 
 namespace Messagehandler
 {
@@ -20,6 +20,7 @@ namespace Messagehandler
 
     // Route the message to the subsystem.
     void Handlemessage(uint32_t MessageID, va_list Arguments);
+    void Handlemessage(uint32_t MessageID, Bytebuffer *Buffer);
 
     // Request-synchronization.
     void Addrequestfront();
