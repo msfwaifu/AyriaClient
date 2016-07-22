@@ -53,3 +53,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #define _SCL_SECURE_NO_WARNINGS
 #endif
+
+// Buffersize for messages.
+#define MAX_MESSAGE_SIZE 2048

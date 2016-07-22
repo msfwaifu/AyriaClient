@@ -10,6 +10,7 @@
 
 #include "Cryptography\Hashing\FNV1.h"
 #include "Strings\Variadicstring.h"
+#include "Buffers\Streambuffer.h"
 #include "Strings\Debugstring.h"
 #include "Buffers\Bytebuffer.h"
 #include "Files\Filesystem.h"

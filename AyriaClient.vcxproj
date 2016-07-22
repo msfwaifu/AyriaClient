@@ -177,6 +177,7 @@
     <ClInclude Include="Source\Configuration\Warnings.h" />
     <ClInclude Include="Source\Utilities\All.h" />
     <ClInclude Include="Source\Utilities\Buffers\Bytebuffer.h" />
+    <ClInclude Include="Source\Utilities\Buffers\Streambuffer.h" />
     <ClInclude Include="Source\Utilities\Cryptography\Hashing\FNV1.h" />
     <ClInclude Include="Source\Utilities\Files\Filesystem.h" />
     <ClInclude Include="Source\Utilities\Strings\Debugstring.h" />
@@ -187,6 +188,7 @@
     <ClCompile Include="Source\Communication\Messagehandler.cpp" />
     <ClCompile Include="Source\Communication\Pipeinterface.cpp" />
     <ClCompile Include="Source\Utilities\Buffers\Bytebuffer.cpp" />
+    <ClCompile Include="Source\Utilities\Buffers\Streambuffer.cpp" />
     <ClCompile Include="Source\Utilities\Files\Filesystem.cpp" />
     <ClCompile Include="Source\Utilities\Strings\Debugstring.cpp" />
     <ClCompile Include="Source\Utilities\Strings\Variadicstring.cpp" />
