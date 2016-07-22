@@ -73,41 +73,50 @@
     <IntDir>$(SolutionDir)Bin\Temporary\</IntDir>
     <TargetName>ayriaclient</TargetName>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)Source;$(ProjectDir)Thirdparty;</IncludePath>
-    <LibraryPath>$(ProjectDir)Thirdparty</LibraryPath>
+    <LibraryPath>$(ProjectDir)Thirdparty;$(LibraryPath)</LibraryPath>
     <SourcePath>$(VC_SourcePath);$(ProjectDir)Thirdparty;</SourcePath>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)Bin\</OutDir>
     <IntDir>$(SolutionDir)Bin\Temporary\</IntDir>
     <TargetName>ayriaclient</TargetName>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)Source;$(ProjectDir)Thirdparty;</IncludePath>
-    <LibraryPath>$(ProjectDir)Thirdparty</LibraryPath>
+    <LibraryPath>$(ProjectDir)Thirdparty;$(LibraryPath)</LibraryPath>
     <SourcePath>$(VC_SourcePath);$(ProjectDir)Thirdparty;</SourcePath>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)Bin\</OutDir>
     <IntDir>$(SolutionDir)Bin\Temporary\</IntDir>
     <TargetName>ayriaclient</TargetName>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)Source;$(ProjectDir)Thirdparty;</IncludePath>
-    <LibraryPath>$(ProjectDir)Thirdparty</LibraryPath>
+    <LibraryPath>$(ProjectDir)Thirdparty;$(LibraryPath)</LibraryPath>
     <SourcePath>$(VC_SourcePath);$(ProjectDir)Thirdparty;</SourcePath>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)Bin\</OutDir>
     <IntDir>$(SolutionDir)Bin\Temporary\</IntDir>
     <TargetName>ayriaclient</TargetName>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)Source;$(ProjectDir)Thirdparty;</IncludePath>
-    <LibraryPath>$(ProjectDir)Thirdparty</LibraryPath>
+    <LibraryPath>$(ProjectDir)Thirdparty;$(LibraryPath)</LibraryPath>
     <SourcePath>$(VC_SourcePath);$(ProjectDir)Thirdparty;</SourcePath>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <AdditionalDependencies>Libuv_$(PlatformToolset)_$(PlatformArchitecture).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -115,9 +124,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <AdditionalDependencies>Libuv_$(PlatformToolset)_$(PlatformArchitecture).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -127,6 +141,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -141,6 +157,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -152,10 +170,25 @@
     <None Include="AyriaClient.licenseheader" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Communication\Messagehandler.h" />
     <ClInclude Include="Source\Configuration\All.h" />
     <ClInclude Include="Source\Configuration\Defines.h" />
     <ClInclude Include="Source\Configuration\Macros.h" />
     <ClInclude Include="Source\Configuration\Warnings.h" />
+    <ClInclude Include="Source\Utilities\All.h" />
+    <ClInclude Include="Source\Utilities\Buffers\Bytebuffer.h" />
+    <ClInclude Include="Source\Utilities\Cryptography\Hashing\FNV1.h" />
+    <ClInclude Include="Source\Utilities\Files\Filesystem.h" />
+    <ClInclude Include="Source\Utilities\Strings\Debugstring.h" />
+    <ClInclude Include="Source\Utilities\Strings\Variadicstring.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Communication\LibraryExports.cpp" />
+    <ClCompile Include="Source\Communication\Messagehandler.cpp" />
+    <ClCompile Include="Source\Utilities\Buffers\Bytebuffer.cpp" />
+    <ClCompile Include="Source\Utilities\Files\Filesystem.cpp" />
+    <ClCompile Include="Source\Utilities\Strings\Debugstring.cpp" />
+    <ClCompile Include="Source\Utilities\Strings\Variadicstring.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
