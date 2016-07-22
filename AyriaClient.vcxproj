@@ -115,7 +115,7 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Libuv_$(PlatformToolset)_$(PlatformArchitecture).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Libuv_$(PlatformToolset)_$(PlatformArchitecture).lib;Iphlpapi.lib;Userenv.lib;ws2_32.lib;Psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
@@ -130,7 +130,7 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Libuv_$(PlatformToolset)_$(PlatformArchitecture).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Libuv_$(PlatformToolset)_$(PlatformArchitecture).lib;Iphlpapi.lib;Userenv.lib;ws2_32.lib;Psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
@@ -147,7 +147,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Libuv_$(PlatformToolset)_$(PlatformArchitecture).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Libuv_$(PlatformToolset)_$(PlatformArchitecture).lib;Iphlpapi.lib;Userenv.lib;ws2_32.lib;Psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -163,7 +163,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Libuv_$(PlatformToolset)_$(PlatformArchitecture).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Libuv_$(PlatformToolset)_$(PlatformArchitecture).lib;Iphlpapi.lib;Userenv.lib;ws2_32.lib;Psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -185,6 +185,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Communication\LibraryExports.cpp" />
     <ClCompile Include="Source\Communication\Messagehandler.cpp" />
+    <ClCompile Include="Source\Communication\Pipeinterface.cpp" />
     <ClCompile Include="Source\Utilities\Buffers\Bytebuffer.cpp" />
     <ClCompile Include="Source\Utilities\Files\Filesystem.cpp" />
     <ClCompile Include="Source\Utilities\Strings\Debugstring.cpp" />

@@ -26,4 +26,9 @@ namespace Messagehandler
     void Removerequest();
     void Waitrequest();
     void Addrequest();
+
+    // Create a pipe for alternative communication.
+    void Createpipeinterface();
+    void Senddataonpipe(std::string &Databuffer);
+    void Senddataonpipe(uint32_t Length, const void *Databuffer);
 };
