@@ -54,28 +54,40 @@ namespace Cachemanager
         Block->Expiration = 0;
         Registerblock(Block);
     }
-    void Registerblock(Cacheblock *Block, uint32_t Timeout, uint32_t ID)
+    void Registerblock(Cacheblock *Block, uint32_t Timeout, uint32_t BlockID)
     {
         Block->Updaterate = Timeout;
-        Block->Identifier = ID;
+        Block->Identifier = BlockID;
         Block->Expiration = 0;
         Registerblock(Block);
     }
 
     // Get a block from the queue.
-    std::shared_ptr<char[]> Getblock(uint32_t ID)
+    std::shared_ptr<char[]> Getblockdata(uint32_t BlockID)
     {
-        if (Cachemap.find(ID) != Cachemap.end())
-            return Cachemap[ID]->Databuffer;
+        if (Cachemap.find(BlockID) != Cachemap.end())
+            return Cachemap[BlockID]->Databuffer;
         else
             return nullptr;
     }
+    void Getblockdata(uint32_t BlockID, void *Databuffer, uint32_t *Datalength)
+    {
+        if (Cachemap.find(BlockID) != Cachemap.end())
+        {
+            *Datalength = std::min(Cachemap[BlockID]->Buffersize, *Datalength);
+            std::memcpy(Databuffer, Cachemap[BlockID]->Databuffer.get(), *Datalength);      
+        }
+        else
+        {
+            *Datalength = 0;
+        }
+    }
 
     // Remove cache tracking for the block.
-    void Removeblock(uint32_t ID)
+    void Removeblock(uint32_t BlockID)
     {
-        if (Cachemap.find(ID) != Cachemap.end())
-            Cachemap.erase(ID);
+        if (Cachemap.find(BlockID) != Cachemap.end())
+            Cachemap.erase(BlockID);
     }
 
     // Create the thread on startup, hackery.

@@ -24,14 +24,15 @@ struct Cacheblock
 
 namespace Cachemanager
 {
-    // Add the block to the internal queue.
+    // Add the block to the internal map.
     void Registerblock(Cacheblock *Block);
     void Registerblock(Cacheblock *Block, uint32_t Timeout);
-    void Registerblock(Cacheblock *Block, uint32_t Timeout, uint32_t ID);
+    void Registerblock(Cacheblock *Block, uint32_t Timeout, uint32_t BlockID);
 
-    // Get a block from the queue.
-    std::shared_ptr<char[]> Getblock(uint32_t ID);
+    // Get a block from the map.
+    std::shared_ptr<char[]> Getblockdata(uint32_t BlockID);
+    void Getblockdata(uint32_t BlockID, void *Databuffer, uint32_t *Datalength);
 
     // Remove cache tracking for the block.
-    void Removeblock(uint32_t ID);
+    void Removeblock(uint32_t BlockID);
 }
