@@ -90,6 +90,13 @@ namespace Cachemanager
             Cachemap.erase(BlockID);
     }
 
+    // Force an update of a block.
+    void Updateblock(uint32_t BlockID)
+    {
+        if (Cachemap.find(BlockID) != Cachemap.end())
+            Cachemap[BlockID].Update();
+    }
+    
     // Create the thread on startup, hackery.
     struct Startthread { Startthread() { std::thread(Updatethread).detach(); } };
     static Startthread Threadhack;

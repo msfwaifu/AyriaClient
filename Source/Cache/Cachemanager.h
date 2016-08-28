@@ -13,10 +13,10 @@
 // Standard unit for storage.
 struct Cacheblock
 {
-    uint32_t Identifier;
-    uint32_t Updaterate;
-    uint32_t Expiration;
-    uint32_t Buffersize;
+    uint32_t Identifier{};
+    uint32_t Updaterate{};
+    uint32_t Expiration{};
+    uint32_t Buffersize{};
     std::shared_ptr<char[]> Databuffer;
 
     virtual void Update() {};
@@ -35,4 +35,7 @@ namespace Cachemanager
 
     // Remove cache tracking for the block.
     void Removeblock(uint32_t BlockID);
+    
+    // Force an update of a block.
+    void Updateblock(uint32_t BlockID);
 }
