@@ -94,7 +94,7 @@ namespace Cachemanager
     void Updateblock(uint32_t BlockID)
     {
         if (Cachemap.find(BlockID) != Cachemap.end())
-            Cachemap[BlockID].Update();
+            Cachemap[BlockID]->Update();
     }
     
     // Create the thread on startup, hackery.
